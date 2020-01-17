@@ -1,0 +1,1714 @@
+\documentclass[DM,lsstdraft,STR,toc]{lsstdoc}
+\usepackage{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{enumitem}
+\usepackage{arydshln}
+
+\input meta.tex
+
+\providecommand{\tightlist}{
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\setcounter{tocdepth}{4}
+
+\begin{document}
+
+\def\milestoneName{Fall 2019 Pipelines Release Acceptance Test Campaign}
+\def\milestoneId{LVV-P65}
+\def\product{Acceptance}
+
+\setDocCompact{true}
+
+\title{ LVV-P65 Fall 2019 Pipelines Release Acceptance Test Campaign Test Plan and Report}
+\setDocRef{\lsstDocType-\lsstDocNum}
+\date{\vcsdate}
+\setDocUpstreamLocation{\url{https://github.com/lsst/lsst-texmf/examples}}
+\author{ Jeffrey Carlin }
+
+\input history_and_info.tex
+
+
+\setDocAbstract{
+This is the test plan and report for LVV-P65 (Fall 2019 Pipelines Release Acceptance Test Campaign),
+an LSST level 2 milestone pertaining to the Data Management Subsystem.
+}
+
+
+\maketitle
+
+\section{Introduction}
+\label{sect:intro}
+
+
+\subsection{Objectives}
+\label{sect:objectives}
+
+This Acceptance Test campaign aims to verify a small number of
+\href{https://lse-61.lsst.io/}{DMSR} (\citeds{LSE-61}) requirements related to
+the LSST Science Pipelines. It will be executed in conjunction with the
+release of Science Pipelines Version 19.0.0, but the pipeline release is
+not contingent upon this test campaign. This Test Plan aims to
+demonstrate that the included requirements have been met by Version
+19.0.0 of the Pipelines, and to thus fully verify their completion and
+readiness for LSST Operations.
+
+
+
+\subsection{System Overview}
+\label{sect:systemoverview}
+
+The tests to be executed are intended to verify that the DM system
+satisfies a subset of the requirements outlined in the Data Management
+System Requirements (DMSR; \href{https://lse-61.lsst.io/}{\citeds{LSE-61}} ).
+This subset of requirements is related to pipeline algorithms, and was
+selected for this campaign to coincide with the release of a new version
+of the LSST Science Pipelines. Additional DMSR requirements will be
+verified in later Acceptance Test
+Campaigns.\\[2\baselineskip]\textbf{Applicable
+Documents:}\\[2\baselineskip]\citeds{LSE-61} Data Management System
+Requirements\\
+\citeds{LDM-503} Data Management Test Plan\\[2\baselineskip]The tests will be
+performed using the HSC-RC2 dataset (as defined in
+\href{https://jira.lsstcorp.org/browse/DM-11345}{DM-11345} ). When
+possible, we will start our tests with the data products resulting from
+processing HSC-RC2 with the w\_2019\_46 weekly pipelines release (
+\href{https://jira.lsstcorp.org/browse/DM-22223}{DM-22223} ) that was
+used to create v19 of the Science Pipelines.~
+
+
+\subsection{Document Overview}
+\label{sect:docoverview}
+
+This document was generated from Jira, obtaining the relevant information from the 
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testPlan/LVV-P65}{LVV-P65}
+~Jira Test Plan and related Test Cycles (
+  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCycle/LVV-C115}{LVV-C115}
+).
+
+Section \ref{sect:intro} provides an overview of the test campaign, the system under test (\product{}),
+the applicable documentation, and explains how this document is organized.
+Section \ref{sect:configuration}  describes the configuration used for this test.
+Section \ref{sect:personnel} describes the necessary roles and lists the individuals assigned to them.
+%Section \ref{sect:plannedtestactivities} provides the list of planned test cycles and test cases,
+including all relevant information that fully describes the test campaign.
+
+Section \ref{sect:overview} provides a summary of the test results, including an overview in Table \ref{table:summary},
+an overall assessment statement and suggestions for possible improvements.
+Section \ref{sect:detailedtestresults} provides detailed results for each step in each test case.
+
+The current status of test plan LVV-P65 in Jira is \textbf{ Approved }.
+
+\subsection{References}
+\label{sect:references}
+\renewcommand{\refname}{}
+\bibliography{lsst,refs,books,refs_ads}
+\section{Test Configuration}
+\label{sect:configuration}
+
+\subsection{Data Collection}
+
+  Observing is not required for this test campaign.
+
+\subsection{Verification Environment}
+\label{sect:hwconf}
+  The ``lsst-lsp-stable'' instance of the LSST Science Platform (LSP),
+hosted at the LDF, and the ``lsst-dev'' development cluster at NCSA.~In
+particular, we will use Release 19.0.0 of the Pipelines, whose release
+is DM Milestone LDM-503-11b (Test Plan located
+\href{https://jira.lsstcorp.org/secure/Tests.jspa\#/testPlan/LVV-P62}{here)}.
+
+
+  \subsection{Entry Criteria}
+  Release and availability of Science Pipelines version 19.
+
+
+
+
+\newpage
+\section{Personnel}
+\label{sect:personnel}
+
+The personnel involved in the test campaign are shown in the following table.
+
+\begin{longtable}{p{3cm}p{3cm}p{3cm}p{6cm}}
+\hline
+\multicolumn{2}{r}{Test Plan (LVV-P65) owner:} &
+\multicolumn{2}{l}{\textbf{ Jeffrey Carlin } }\\\hline
+\multicolumn{2}{r}{ LVV-C115 owner:} &
+\multicolumn{2}{l}{\textbf{
+    Jeffrey Carlin
+}
+} \\\hline
+\textbf{Test Case} & \textbf{Assigned to} & \textbf{Executed by} & \textbf{Additional Test Personnel} \\ \hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T41}{LVV-T41}
+& {\small Jim Bosch } & {\small  } &
+\begin{minipage}[]{6cm}
+\smallskip
+{\small  }
+\medskip
+\end{minipage}
+\\ \hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T62}{LVV-T62}
+& {\small Jim Bosch } & {\small  } &
+\begin{minipage}[]{6cm}
+\smallskip
+{\small  }
+\medskip
+\end{minipage}
+\\ \hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T132}{LVV-T132}
+& {\small Jeffrey Carlin } & {\small  } &
+\begin{minipage}[]{6cm}
+\smallskip
+{\small  }
+\medskip
+\end{minipage}
+\\ \hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T40}{LVV-T40}
+& {\small Jim Bosch } & {\small  } &
+\begin{minipage}[]{6cm}
+\smallskip
+{\small  }
+\medskip
+\end{minipage}
+\\ \hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T1240}{LVV-T1240}
+& {\small Jim Bosch } & {\small  } &
+\begin{minipage}[]{6cm}
+\smallskip
+{\small  }
+\medskip
+\end{minipage}
+\\ \hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T378}{LVV-T378}
+& {\small Leanne Guy } & {\small  } &
+\begin{minipage}[]{6cm}
+\smallskip
+{\small  }
+\medskip
+\end{minipage}
+\\ \hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T377}{LVV-T377}
+& {\small Leanne Guy } & {\small  } &
+\begin{minipage}[]{6cm}
+\smallskip
+{\small  }
+\medskip
+\end{minipage}
+\\ \hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T376}{LVV-T376}
+& {\small Leanne Guy } & {\small  } &
+\begin{minipage}[]{6cm}
+\smallskip
+{\small  }
+\medskip
+\end{minipage}
+\\ \hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T28}{LVV-T28}
+& {\small Colin Slater } & {\small  } &
+\begin{minipage}[]{6cm}
+\smallskip
+{\small  }
+\medskip
+\end{minipage}
+\\ \hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T43}{LVV-T43}
+& {\small Jim Bosch } & {\small  } &
+\begin{minipage}[]{6cm}
+\smallskip
+{\small  }
+\medskip
+\end{minipage}
+\\ \hline
+\end{longtable}
+
+\newpage
+
+\section{Test Campaign Overview}
+\label{sect:overview}
+
+\subsection{Summary}
+\label{sect:summarytable}
+
+\begin{longtable}{p{2cm}p{2.5cm}p{9cm}p{2.5cm}}
+\toprule
+\multicolumn{3}{l}{ Test Plan {\bf LVV-P65: Fall 2019 Pipelines Release Acceptance Test Campaign
+ }} & Approved \\\hline
+
+  \multicolumn{3}{l}{ Test Cycle {\bf LVV-C115: Fall 2019 Pipelines Release Acceptance Test Campaign
+ }} & Not Executed \\\hline
+
+  {\bf \footnotesize test case} & {\bf \footnotesize status} & {\bf \footnotesize comment} & {\bf \footnotesize issues} \\\toprule
+
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T41}{LVV-T41}
+    & Not Executed &
+    \begin{minipage}[]{9cm}
+    \smallskip
+    
+    \medskip
+    \end{minipage}
+    &
+    \\\hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T62}{LVV-T62}
+    & Not Executed &
+    \begin{minipage}[]{9cm}
+    \smallskip
+    
+    \medskip
+    \end{minipage}
+    &
+    \\\hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T132}{LVV-T132}
+    & Not Executed &
+    \begin{minipage}[]{9cm}
+    \smallskip
+    
+    \medskip
+    \end{minipage}
+    &
+    \\\hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T40}{LVV-T40}
+    & Not Executed &
+    \begin{minipage}[]{9cm}
+    \smallskip
+    
+    \medskip
+    \end{minipage}
+    &
+    \\\hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T1240}{LVV-T1240}
+    & Not Executed &
+    \begin{minipage}[]{9cm}
+    \smallskip
+    
+    \medskip
+    \end{minipage}
+    &
+    \\\hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T378}{LVV-T378}
+    & Not Executed &
+    \begin{minipage}[]{9cm}
+    \smallskip
+    
+    \medskip
+    \end{minipage}
+    &
+    \\\hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T377}{LVV-T377}
+    & Not Executed &
+    \begin{minipage}[]{9cm}
+    \smallskip
+    
+    \medskip
+    \end{minipage}
+    &
+    \\\hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T376}{LVV-T376}
+    & Not Executed &
+    \begin{minipage}[]{9cm}
+    \smallskip
+    
+    \medskip
+    \end{minipage}
+    &
+    \\\hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T28}{LVV-T28}
+    & Not Executed &
+    \begin{minipage}[]{9cm}
+    \smallskip
+    
+    \medskip
+    \end{minipage}
+    &
+    \\\hline
+\href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T43}{LVV-T43}
+    & Not Executed &
+    \begin{minipage}[]{9cm}
+    \smallskip
+    
+    \medskip
+    \end{minipage}
+    &
+    \\\hline
+\caption{Test Campaign Summary}
+\label{table:summary}
+\end{longtable}
+
+\subsection{Overall Assessment}
+\label{sect:overallassessment}
+
+Not yet available.
+
+\subsection{Recommended Improvements}
+\label{sect:recommendations}
+
+Not yet available.
+
+\newpage
+\section{Detailed Test Results}
+\label{sect:detailedtestresults}
+
+\subsection{Test Cycle LVV-C115 }
+
+Open test cycle {\it \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testrun/LVV-C115}{Fall 2019 Pipelines Release Acceptance Test Campaign
+}} in Jira.
+
+Fall 2019 Pipelines Release Acceptance Test Campaign
+\\
+Status: Not Executed
+
+This test cycle verifies a subset of
+\href{https://lse-61.lsst.io/}{DMSR} (\citeds{LSE-61}) requirements related to
+the LSST Science Pipelines, in order to verify their completion and
+readiness for LSST Operations (i.e., that the requirements laid out in
+\citeds{LSE-61} have been met by the DM Systems).
+
+
+\subsubsection{Software Version/Baseline}
+All tests will be performed with LSST Science Pipelines release version
+19.0.0, including its algorithms and resulting science data products.~
+
+
+\subsubsection{Configuration}
+Not provided.
+
+\subsubsection{Test Cases in LVV-C115 Test Cycle}
+
+\paragraph{Test Case LVV-T41 - Verify implementation of Generate PSF for Visit Images
+ }\mbox{}\\
+
+Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T41}{\textit{ LVV-T41 } }
+test case in Jira.
+
+Verify that Processed Visit Images produced by the DRP and AP pipelines
+are associated with a model from which one can obtain an image of the
+PSF given a point on the image.
+
+
+\textbf{ Preconditions}:\\
+
+
+Execution status: {\bf Not Executed }
+
+Final comment:\\
+
+
+Detailed steps results:
+
+\begin{longtable}{p{1cm}p{15cm}}
+\hline
+{Step} & Step Details\\ \hline
+1 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify a dataset with processed visit images in multiple filters.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+2 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify the path to the data repository, which we will refer to as
+`DATA/path', then execute the following:
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+ & Example Code \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+\begin{verbatim}
+import lsst.daf.persistence as dafPersist
+butler = dafPersist.Butler(inputs='DATA/path')
+\end{verbatim}
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Butler repo available for reading.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+3 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Select Objects classified as point sources on at least 10 different
+processed visit images (including all bands). ~Evaluate the PSF model at
+the positions of these Objects, and verify that subtracting a scaled
+version of the PSF model from the processed visit image yields residuals
+consistent with pure noise.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Images with the PSF model subtracted, leaving only residuals that are
+consistent with being noise.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+\end{longtable}
+
+\paragraph{Test Case LVV-T62 - Verify implementation of Provide PSF for Coadded Images
+ }\mbox{}\\
+
+Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T62}{\textit{ LVV-T62 } }
+test case in Jira.
+
+Verify that all coadd images produced by the DRP pipelines include a
+model from which an image of the PSF at any point on the coadd can be
+obtained.
+
+
+\textbf{ Preconditions}:\\
+Fully covered by preconditions for
+\href{https://jira.lsstcorp.org/secure/Tests.jspa\#/testCase/LVV-T16}{LVV-T16}.
+
+
+Execution status: {\bf Not Executed }
+
+Final comment:\\
+
+
+Detailed steps results:
+
+\begin{longtable}{p{1cm}p{15cm}}
+\hline
+{Step} & Step Details\\ \hline
+1 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify a dataset with coadded images in multiple filters.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Multi-band data that has been processed through the coaddition stage.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+2 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify the path to the data repository, which we will refer to as
+`DATA/path', then execute the following:
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+ & Example Code \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+\begin{verbatim}
+import lsst.daf.persistence as dafPersist
+butler = dafPersist.Butler(inputs='DATA/path')
+\end{verbatim}
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Butler repo available for reading.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+3 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Load the exposures, then select Objects classified as point sources on
+at least 10 different coadd images (including all bands). Evaluate the
+PSF model at the positions of these Objects, and verify that subtracting
+a scaled version of the PSF model from the processed visit image yields
+residuals consistent with pure noise.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Images with the PSF model subtracted, leaving only residuals that are
+consistent with being noise.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+\end{longtable}
+
+\paragraph{Test Case LVV-T132 - Verify implementation of Pre-cursor and Real Data
+ }\mbox{}\\
+
+Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T132}{\textit{ LVV-T132 } }
+test case in Jira.
+
+Demonstrate that pixel-oriented data from astronomical imaging cameras
+(precursor or otherwise) can be processed using LSST Science Algorithms
+and organized for access through the Data Butler Access Client. ~
+
+
+\textbf{ Preconditions}:\\
+
+
+Execution status: {\bf Not Executed }
+
+Final comment:\\
+
+
+Detailed steps results:
+
+\begin{longtable}{p{1cm}p{15cm}}
+\hline
+{Step} & Step Details\\ \hline
+1 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Confirm that the CI jobs used to test DRP and AP processing successfully
+run. These jobs use precursor datasets from cameras other than LSST.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+2 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+For each of these two datasets, instantiate the Butler, load the data
+products, and confirm that they exist as expected.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Processed images, catalogs, calibration information, and other related
+data products are present and accessible via the Butler.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+\end{longtable}
+
+\paragraph{Test Case LVV-T40 - Verify implementation of Generate WCS for Visit Images
+ }\mbox{}\\
+
+Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T40}{\textit{ LVV-T40 } }
+test case in Jira.
+
+Verify that Processed Visit Images produced by the AP and DRP pipelines
+include FITS WCS accurate to specified \textbf{astrometricAccuracy} over
+the bounds of the image.
+
+
+\textbf{ Preconditions}:\\
+
+
+Execution status: {\bf Not Executed }
+
+Final comment:\\
+
+
+Detailed steps results:
+
+\begin{longtable}{p{1cm}p{15cm}}
+\hline
+{Step} & Step Details\\ \hline
+1 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify an appropriate processed dataset for this test.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+A dataset with Processed Visit Images available.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+2 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify the path to the data repository, which we will refer to as
+`DATA/path', then execute the following:
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+ & Example Code \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+\begin{verbatim}
+import lsst.daf.persistence as dafPersist
+butler = dafPersist.Butler(inputs='DATA/path')
+\end{verbatim}
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Butler repo available for reading.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+3 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Select a single visit from the dataset, and extract its WCS object and
+the source list.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+A table containing detected sources, and a WCS object associated with
+that catalog.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+4 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Confirm that each CCD within the visit image contains at
+least~\textbf{astrometricMinStandards~}astrometric standards that were
+used in deriving the astrometric solution.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+At least \textbf{astrometricMinStandards} from each CCD\textbf{~}were
+used in determining the WCS solution.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+5 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Starting from the XY pixel coordinates of the sources, apply the WCS to
+obtain RA, Dec coordinates.\\[2\baselineskip]
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+A list of RA, Dec coordinates for all sources in the catalog.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+6 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+We will assume that Gaia provides a source of ``truth.'' Match the
+source list to Gaia DR2, and calculate the positional offset between the
+test data and the Gaia catalog.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+A matched catalog of sources in common between the test source list and
+Gaia DR2.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+7 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Apply appropriate cuts to extract the optimal dataset for comparison,
+then calculate statistics (median, 1-sigma range, etc.; also plot a
+histogram) of the offsets in milliarcseconds. Confirm that the offset is
+less than \textbf{astrometricAccuracy}.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Histogram and relevant statistics needed to confirm that the WCS
+transformation is accurate.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+8 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Repeat Step 5, but for subregions of the image, to confirm that the
+accuracy criterion is met at all positions.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+\textbf{astrometricAccuracy~}requirement is met over the entire image.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+\end{longtable}
+
+\paragraph{Test Case LVV-T1240 - Verify implementation of minimum astrometric standards per CCD
+ }\mbox{}\\
+
+Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T1240}{\textit{ LVV-T1240 } }
+test case in Jira.
+
+Verify that each CCD in a processed dataset had its astrometric solution
+determined by at least~\textbf{astrometricMinStandards = 5~}astrometric
+standards.
+
+
+\textbf{ Preconditions}:\\
+
+
+Execution status: {\bf Not Executed }
+
+Final comment:\\
+
+
+Detailed steps results:
+
+\begin{longtable}{p{1cm}p{15cm}}
+\hline
+{Step} & Step Details\\ \hline
+1 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify an appropriate processed dataset for this test.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+A dataset with Processed Visit Images.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+2 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify the path to the data repository, which we will refer to as
+`DATA/path', then execute the following:
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+ & Example Code \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+\begin{verbatim}
+import lsst.daf.persistence as dafPersist
+butler = dafPersist.Butler(inputs='DATA/path')
+\end{verbatim}
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Butler repo available for reading.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+3 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Select a single visit from the dataset, and extract its calibration
+data. For a subset of CCDs, check how many astrometric standards
+contributed to the solution. Confirm that this number is at
+least~\textbf{astrometricMinStandards = 5.}
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+At least \textbf{astrometricMinStandards} from each CCD\textbf{~}were
+used in determining the WCS solution.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+\end{longtable}
+
+\paragraph{Test Case LVV-T378 - Verify Calculation of Astrometric Performance Metrics
+ }\mbox{}\\
+
+Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T378}{\textit{ LVV-T378 } }
+test case in Jira.
+
+Verify that the DMS system provides software to calculate astrometric
+performance metrics, and that the algorithms are properly calculating
+the desired quantities. Note that because the DMS requirement is that
+the software shall be provided (and not on the actual measured values of
+the metrics), we verify all of the requirements via a single test case.
+
+
+\textbf{ Preconditions}:\\
+
+
+Execution status: {\bf Not Executed }
+
+Final comment:\\
+
+
+Detailed steps results:
+
+\begin{longtable}{p{1cm}p{15cm}}
+\hline
+{Step} & Step Details\\ \hline
+1 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify the path to the data repository, which we will refer to as
+`DATA/path', then execute the following:
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+ & Example Code \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+\begin{verbatim}
+import lsst.daf.persistence as dafPersist
+butler = dafPersist.Butler(inputs='DATA/path')
+\end{verbatim}
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Butler repo available for reading.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+2 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Point the butler to an appropriate (precursor or simulated) dataset
+containing data in all filters, that is sufficient for the purposes of
+measuring astrometric performance metrics.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+3 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Execute the LSST Stack package `validate\_drp` (or an alternate package
+that is relevant) on this dataset to perform the measurements of the
+metrics.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Measurements of validation metrics and the presence of QA plots
+resulting from the validation pipeline.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+4 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Compare measured astrometry to known (for simulated data) or measured
+(if using precursor data) values from input (precursor or simulated)
+data, and confirm that the output values for all of the astrometric
+performance metrics are as expected.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Measured astrometry metrics that are within reasonable values given the
+(known) input dataset.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+\end{longtable}
+
+\paragraph{Test Case LVV-T377 - Verify Calculation of Photometric Performance Metrics
+ }\mbox{}\\
+
+Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T377}{\textit{ LVV-T377 } }
+test case in Jira.
+
+Verify that the DMS system provides software to calculate photometric
+performance metrics, and that the algorithms are properly calculating
+the desired quantities. Note that because the DMS requirement is that
+the software shall be provided (and not on the actual measured values of
+the metrics), we verify all of the requirements via a single test case.
+
+
+\textbf{ Preconditions}:\\
+
+
+Execution status: {\bf Not Executed }
+
+Final comment:\\
+
+
+Detailed steps results:
+
+\begin{longtable}{p{1cm}p{15cm}}
+\hline
+{Step} & Step Details\\ \hline
+1 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify the path to the data repository, which we will refer to as
+`DATA/path', then execute the following:
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+ & Example Code \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+\begin{verbatim}
+import lsst.daf.persistence as dafPersist
+butler = dafPersist.Butler(inputs='DATA/path')
+\end{verbatim}
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Butler repo available for reading.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+2 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Point the butler to a simulated dataset containing data in all filters,
+that is sufficient for the purposes of measuring photometric performance
+metrics.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+3 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Execute the LSST Stack package `validate\_drp` (or an alternate package
+that is relevant) on this dataset to perform the measurements of the
+metrics.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Measurements of validation metrics and the presence of QA plots
+resulting from the validation pipeline.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+4 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Compare measured photometry to known values from input simulated data,
+and confirm that the output values for all of the photometric
+performance metrics are as expected.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Measured astrometry metrics that are within reasonable values given the
+(known) input dataset.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+\end{longtable}
+
+\paragraph{Test Case LVV-T376 - Verify the Calculation of Ellipticity Residuals and Correlations
+ }\mbox{}\\
+
+Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T376}{\textit{ LVV-T376 } }
+test case in Jira.
+
+Verify that the DMS includes software to enable the calculation of the
+ellipticity residuals and correlation metrics defined in the OSS.~
+
+
+\textbf{ Preconditions}:\\
+
+
+Execution status: {\bf Not Executed }
+
+Final comment:\\
+
+
+Detailed steps results:
+
+\begin{longtable}{p{1cm}p{15cm}}
+\hline
+{Step} & Step Details\\ \hline
+1 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify the path to the data repository, which we will refer to as
+`DATA/path', then execute the following:
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+ & Example Code \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+\begin{verbatim}
+import lsst.daf.persistence as dafPersist
+butler = dafPersist.Butler(inputs='DATA/path')
+\end{verbatim}
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Butler repo available for reading.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+2 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Point the butler to an appropriate (precursor or simulated) dataset
+containing data in all filters, that is sufficient for the purposes of
+measuring astrometric performance metrics.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+3 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Execute the LSST Stack package `validate\_drp` (or an alternate package
+that is relevant) on this dataset to perform the measurements of the
+metrics.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Measurements of validation metrics and the presence of QA plots
+resulting from the validation pipeline.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+4 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Compare measured ellipticity correlations to known (for simulated data)
+or measured (if using precursor data) values from input (precursor or
+simulated) data, and confirm that the output values for all of the
+ellipticity performance metrics are as expected.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Measured ellipticity metrics that are within reasonable values given the
+(known) input dataset.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+\end{longtable}
+
+\paragraph{Test Case LVV-T28 - Verify implementation of Measurements in catalogs
+ }\mbox{}\\
+
+Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T28}{\textit{ LVV-T28 } }
+test case in Jira.
+
+Verify that source measurements in catalogs are in flux units.
+
+
+\textbf{ Preconditions}:\\
+
+
+Execution status: {\bf Not Executed }
+
+Final comment:\\
+
+
+Detailed steps results:
+
+\begin{longtable}{p{1cm}p{15cm}}
+\hline
+{Step} & Step Details\\ \hline
+1 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify the path to the data repository, which we will refer to as
+`DATA/path', then execute the following:
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+ & Example Code \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+\begin{verbatim}
+import lsst.daf.persistence as dafPersist
+butler = dafPersist.Butler(inputs='DATA/path')
+\end{verbatim}
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Butler repo available for reading.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+2 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify and read appropriate processed precursor datasets with the
+Butler, including one containing single-visit images, one with coadds,
+and one with difference imaging.~
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+3 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Verify that each of the single-visit, coadd, and difference image
+catalogs provide measurements in flux units.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Confirmation of measurements in catalogs encoded in flux units.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+\end{longtable}
+
+\paragraph{Test Case LVV-T43 - Verify implementation of Background Model Calculation
+ }\mbox{}\\
+
+Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T43}{\textit{ LVV-T43 } }
+test case in Jira.
+
+Verify that Processed Visit Images produced by the DRP and AP pipelines
+have had a model of the background subtracted, and that this model is
+persisted in a way that permits the background subtracted from any CCD
+to be retrieved along with the image for that CCD.
+
+
+\textbf{ Preconditions}:\\
+
+
+Execution status: {\bf Not Executed }
+
+Final comment:\\
+
+
+Detailed steps results:
+
+\begin{longtable}{p{1cm}p{15cm}}
+\hline
+{Step} & Step Details\\ \hline
+1 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify a dataset with processed visit images in multiple filters.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+2 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Identify the path to the data repository, which we will refer to as
+`DATA/path', then execute the following:
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+ & Example Code \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+\begin{verbatim}
+import lsst.daf.persistence as dafPersist
+butler = dafPersist.Butler(inputs='DATA/path')
+\end{verbatim}
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Butler repo available for reading.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+3 & Description \\
+ & \begin{minipage}[t]{15cm}
+{\footnotesize
+Display an image of the background model for a full CCD. Repeat this for
+all available filters, and confirm that the background is smoothly
+varying and defined over the full CCD.
+
+\medskip }
+\end{minipage}
+\\ \cdashline{2-2}
+
+
+ & Expected Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+Well-formed background covering the entire CCD for all CCDs in all
+filters.
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Actual Result \\
+ & \begin{minipage}[t]{15cm}{\footnotesize
+
+\medskip }
+\end{minipage} \\ \cdashline{2-2}
+
+ & Status: \textbf{ Not Executed } \\ \hline
+
+\end{longtable}
+
+
+\input{appendix.tex}
+\end{document}
