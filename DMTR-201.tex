@@ -141,7 +141,7 @@ The personnel involved in the test campaign are shown in the following table.
 } \\\hline
 \textbf{Test Case} & \textbf{Assigned to} & \textbf{Executed by} & \textbf{Additional Test Personnel} \\ \hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T41}{LVV-T41}
-& {\small Jim Bosch } & {\small  } &
+& {\small Jim Bosch } & {\small Jeffrey Carlin } &
 \begin{minipage}[]{6cm}
 \smallskip
 {\small  }
@@ -149,7 +149,7 @@ The personnel involved in the test campaign are shown in the following table.
 \end{minipage}
 \\ \hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T62}{LVV-T62}
-& {\small Jim Bosch } & {\small  } &
+& {\small Jim Bosch } & {\small Jeffrey Carlin } &
 \begin{minipage}[]{6cm}
 \smallskip
 {\small  }
@@ -213,7 +213,7 @@ The personnel involved in the test campaign are shown in the following table.
 \end{minipage}
 \\ \hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T43}{LVV-T43}
-& {\small Jim Bosch } & {\small  } &
+& {\small Jim Bosch } & {\small Jeffrey Carlin } &
 \begin{minipage}[]{6cm}
 \smallskip
 {\small  }
@@ -236,24 +236,28 @@ The personnel involved in the test campaign are shown in the following table.
  }} & Approved \\\hline
 
   \multicolumn{3}{l}{ Test Cycle {\bf LVV-C115: Fall 2019 Pipelines Release Acceptance Test Campaign
- }} & Not Executed \\\hline
+ }} & In Progress \\\hline
 
   {\bf \footnotesize test case} & {\bf \footnotesize status} & {\bf \footnotesize comment} & {\bf \footnotesize issues} \\\toprule
 
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T41}{LVV-T41}
-    & Not Executed &
+    & Pass &
     \begin{minipage}[]{9cm}
     \smallskip
-    
+    Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
     \medskip
     \end{minipage}
     &
     \\\hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T62}{LVV-T62}
-    & Not Executed &
+    & Pass &
     \begin{minipage}[]{9cm}
     \smallskip
-    
+    Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
     \medskip
     \end{minipage}
     &
@@ -322,10 +326,12 @@ The personnel involved in the test campaign are shown in the following table.
     &
     \\\hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T43}{LVV-T43}
-    & Not Executed &
+    & Pass &
     \begin{minipage}[]{9cm}
     \smallskip
-    
+    Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
     \medskip
     \end{minipage}
     &
@@ -355,7 +361,7 @@ Open test cycle {\it \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testrun/
 
 Fall 2019 Pipelines Release Acceptance Test Campaign
 \\
-Status: Not Executed
+Status: In Progress
 
 This test cycle verifies a subset of
 \href{https://lse-61.lsst.io/}{DMSR} (\citeds{LSE-61}) requirements related to
@@ -388,9 +394,11 @@ PSF given a point on the image.
 \textbf{ Preconditions}:\\
 
 
-Execution status: {\bf Not Executed }
+Execution status: {\bf Pass }
 
-Final comment:\\
+Final comment:\\Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
 
 
 Detailed steps results:
@@ -416,11 +424,17 @@ Identify a dataset with processed visit images in multiple filters.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+We used the output repo from HSC-RC2 data processing, as executed using
+the weekly pipelines release (w\_2019\_46) that became v19.0.0. The
+output repo is tagged with the Jira ticket number
+\href{https://jira.lsstcorp.org/browse/DM-22223}{DM-22223}.\\[2\baselineskip]The
+path to the dataset on the development cluster (lsst-dev) is
+`/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'.
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 2 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -451,11 +465,19 @@ Butler repo available for reading.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+The test was executed in a notebook named `test\_LVV-T41.ipynb`. Within
+the notebook, initialization of the Butler repo was done as
+follows:\\[2\baselineskip]import lsst.daf.persistence as dafPersist\\
+rc2\_repo = `/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'\\
+butler = dafPersist.Butler(rc2\_repo)\\[2\baselineskip]Further steps
+were needed to parse the filenames in the repository to extract the
+available tract/patch/visit combinations. (These steps may not be
+necessary with future versions of the data butler.)
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 3 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -481,11 +503,44 @@ consistent with being noise.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+CCD/tract/patch/visit combinations were selected at random and the
+corresponding dataIds (datarefs) created. To extract the background, the
+following line was executed for each dataId:\\[2\baselineskip]calexp =
+butler.get('calexp', dataId = dataref)\\
+psf= calexp.getPsf()\\[2\baselineskip]Random XY points were generated
+for each image, and the image of the PSF was extracted at those
+positions:\\
+
+\begin{verbatim}
+    xpt = random.random()*xsize
+    ypt = random.random()*ysize
+    psfimage = psf.computeImage(geom.PointD(xpt, ypt))
+\end{verbatim}
+
+These were displayed in the notebook.\\[2\baselineskip]In addition,
+images of stars that were used for creating the PSF and for photometric
+calibration were extracted. Their images were displayed alongside the
+scaled PSF model evaluated at the star's position, and the residuals
+remaining after subtracting the scaled
+PSF.\\[2\baselineskip]Additionally, a larger subset of dataIds was
+selected, from which we test whether \emph{all} calexps have an
+associated PSF model. The result of this test, seen in the test
+notebook, is as follows:\\[2\baselineskip]
+
+\begin{verbatim}
+All CCDs have an associated PSF model:  True
+\end{verbatim}
+
+If any of the 100 randomly selected CCDs did not have an associated PSF
+model, this statement would not return True.\\[2\baselineskip]The
+executed notebook was saved in the
+\href{https://github.com/lsst-dm/DMTR-201}{lsst-dm/DMTR-201} repository
+as ``executions/LVV-T41/test\_LVV-T41.ipynb''.~
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 \end{longtable}
 
@@ -505,9 +560,11 @@ Fully covered by preconditions for
 \href{https://jira.lsstcorp.org/secure/Tests.jspa\#/testCase/LVV-T16}{LVV-T16}.
 
 
-Execution status: {\bf Not Executed }
+Execution status: {\bf Pass }
 
-Final comment:\\
+Final comment:\\Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
 
 
 Detailed steps results:
@@ -534,11 +591,17 @@ Multi-band data that has been processed through the coaddition stage.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+We used the output repo from HSC-RC2 data processing, as executed using
+the weekly pipelines release (w\_2019\_46) that became v19.0.0. The
+output repo is tagged with the Jira ticket number
+\href{https://jira.lsstcorp.org/browse/DM-22223}{DM-22223}.\\[2\baselineskip]The
+path to the dataset on the development cluster (lsst-dev) is
+`/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'.
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 2 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -569,11 +632,19 @@ Butler repo available for reading.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+The test was executed in a notebook named `test\_LVV-T62.ipynb`. Within
+the notebook, initialization of the Butler repo was done as
+follows:\\[2\baselineskip]import lsst.daf.persistence as dafPersist\\
+rc2\_repo = `/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'\\
+butler = dafPersist.Butler(rc2\_repo)\\[2\baselineskip]Further steps
+were needed to parse the filenames in the repository to extract the
+available tract/patch combinations. (These steps may not be necessary
+with future versions of the data butler.)
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 3 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -599,11 +670,44 @@ consistent with being noise.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+Tract/patch combinations were selected at random and the corresponding
+dataIds (datarefs) created. To extract the background, the following
+line was executed for each dataId:\\[2\baselineskip]calexp =
+butler.get('deepCoadd\_calexp', dataId = dataref)\\
+psf= calexp.getPsf()\\[2\baselineskip]Random XY points were generated
+for each image, and the image of the PSF was extracted at those
+positions:\\
+
+\begin{verbatim}
+    xpt = random.random()*xsize
+    ypt = random.random()*ysize
+    psfimage = psf.computeImage(geom.PointD(xpt, ypt))
+\end{verbatim}
+
+These were displayed in the notebook.\\[2\baselineskip]In addition,
+images of random bright stars (between the 85th-90th percentile in flux)
+were extracted. Their images were displayed alongside the scaled PSF
+model evaluated at the star's position, and the residuals remaining
+after subtracting the scaled PSF.\\[2\baselineskip]Additionally, a
+larger subset of dataIds was selected, from which we test whether
+\emph{all} deepCoadd\_calexps have an associated PSF model. The result
+of this test, seen in the test notebook, is as
+follows:\\[2\baselineskip]
+
+\begin{verbatim}
+All patches have an associated PSF model:  True
+\end{verbatim}
+
+If any of the 100 randomly selected patches did not have an associated
+PSF model, this statement would not return True.\\[2\baselineskip]The
+executed notebook was saved in the
+\href{https://github.com/lsst-dm/DMTR-201}{lsst-dm/DMTR-201} repository
+as ``executions/LVV-T62/test\_LVV-T62.ipynb''.~
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 \end{longtable}
 
@@ -1610,9 +1714,11 @@ to be retrieved along with the image for that CCD.
 \textbf{ Preconditions}:\\
 
 
-Execution status: {\bf Not Executed }
+Execution status: {\bf Pass }
 
-Final comment:\\
+Final comment:\\Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
 
 
 Detailed steps results:
@@ -1638,11 +1744,17 @@ Identify a dataset with processed visit images in multiple filters.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+We used the output repo from HSC-RC2 data processing, as executed using
+the weekly pipelines release (w\_2019\_46) that became v19.0.0. The
+output repo is tagged with the Jira ticket number
+\href{https://jira.lsstcorp.org/browse/DM-22223}{DM-22223}.\\[2\baselineskip]The
+path to the dataset on the development cluster (lsst-dev) is
+`/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'.
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 2 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -1673,11 +1785,19 @@ Butler repo available for reading.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+The test was executed in a notebook named `test\_LVV-T43.ipynb`. Within
+the notebook, initialization of the Butler repo was done as
+follows:\\[2\baselineskip]import lsst.daf.persistence as dafPersist\\
+rc2\_repo = `/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'\\
+butler = dafPersist.Butler(rc2\_repo)\\[2\baselineskip]Further steps
+were needed to parse the filenames in the repository to extract the
+available tract/patch/visit combinations. (These steps may not be
+necessary with future versions of the data butler.)
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 3 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -1701,11 +1821,32 @@ filters.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+CCD/tract/patch/visit combinations were selected at random and the
+corresponding dataIds (datarefs) created. To extract the background, the
+following line was executed for each dataId:\\[2\baselineskip]bb =
+butler.get('calexpBackground', dataId =
+datarefs{[}ii{]})\\[2\baselineskip]These were displayed alongside the
+final calexp image.\\[2\baselineskip]Additionally, a larger subset of
+dataIds was selected, from which we test whether (a) \emph{all} calexps
+have an associated background model, and (b) the background model is
+well-formed and populated with finite values for all pixels. The result
+of this test, seen in the test notebook, is as
+follows:\\[2\baselineskip]
+
+\begin{verbatim}
+All CCDs have an associated background.
+\end{verbatim}
+
+If any of the 100 randomly selected CCDs had a malformed (or
+non-existent) background model, this statement would not return
+True.\\[2\baselineskip]The executed notebook was saved in the
+\href{https://github.com/lsst-dm/DMTR-201}{lsst-dm/DMTR-201} repository
+as ``executions/LVV-T43/test\_LVV-T43.ipynb''.~
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 \end{longtable}
 
