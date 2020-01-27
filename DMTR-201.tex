@@ -43,7 +43,7 @@ an LSST level 2 milestone pertaining to the Data Management Subsystem.
 \subsection{Objectives}
 \label{sect:objectives}
 
-This Acceptance Test campaign aims to verify a small number of
+ This Acceptance Test campaign aims to verify a small number of
 \href{https://lse-61.lsst.io/}{DMSR} (\citeds{LSE-61}) requirements related to
 the LSST Science Pipelines. It will be executed in conjunction with the
 release of Science Pipelines Version 19.0.0, but the pipeline release is
@@ -57,9 +57,9 @@ readiness for LSST Operations.
 \subsection{System Overview}
 \label{sect:systemoverview}
 
-The tests to be executed are intended to verify that the DM system
+ The tests to be executed are intended to verify that the DM system
 satisfies a subset of the requirements outlined in the Data Management
-System Requirements (DMSR; \href{https://lse-61.lsst.io/}{\citeds{LSE-61}} ).
+System Requirements (DMSR; \href{https://lse-61.lsst.io/}{LSE-61} ).
 This subset of requirements is related to pipeline algorithms, and was
 selected for this campaign to coincide with the release of a new version
 of the LSST Science Pipelines. Additional DMSR requirements will be
@@ -111,7 +111,7 @@ The current status of test plan LVV-P65 in Jira is \textbf{ Approved }.
 
 \subsection{Verification Environment}
 \label{sect:hwconf}
-  The ``lsst-lsp-stable'' instance of the LSST Science Platform (LSP),
+   The ``lsst-lsp-stable'' instance of the LSST Science Platform (LSP),
 hosted at the LDF, and the ``lsst-dev'' development cluster at NCSA.~In
 particular, we will use Release 19.0.0 of the Pipelines, whose release
 is DM Milestone LDM-503-11b (Test Plan located
@@ -119,7 +119,7 @@ is DM Milestone LDM-503-11b (Test Plan located
 
 
   \subsection{Entry Criteria}
-  Release and availability of Science Pipelines version 19.
+   Release and availability of Science Pipelines version 19.
 
 
 
@@ -232,10 +232,10 @@ The personnel involved in the test campaign are shown in the following table.
 
 \begin{longtable}{p{2cm}p{2.5cm}p{9cm}p{2.5cm}}
 \toprule
-\multicolumn{3}{l}{ Test Plan {\bf LVV-P65: Fall 2019 Pipelines Release Acceptance Test Campaign
+\multicolumn{3}{l}{ Test Plan {\bf LVV-P65:  Fall 2019 Pipelines Release Acceptance Test Campaign
  }} & Approved \\\hline
 
-  \multicolumn{3}{l}{ Test Cycle {\bf LVV-C115: Fall 2019 Pipelines Release Acceptance Test Campaign
+  \multicolumn{3}{l}{ Test Cycle {\bf LVV-C115:  Fall 2019 Pipelines Release Acceptance Test Campaign
  }} & In Progress \\\hline
 
   {\bf \footnotesize test case} & {\bf \footnotesize status} & {\bf \footnotesize comment} & {\bf \footnotesize issues} \\\toprule
@@ -244,7 +244,7 @@ The personnel involved in the test campaign are shown in the following table.
     & Pass &
     \begin{minipage}[]{9cm}
     \smallskip
-    Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+     Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
 container.
 
     \medskip
@@ -255,7 +255,7 @@ container.
     & Pass &
     \begin{minipage}[]{9cm}
     \smallskip
-    Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+     Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
 container.
 
     \medskip
@@ -329,7 +329,7 @@ container.
     & Pass &
     \begin{minipage}[]{9cm}
     \smallskip
-    Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+     Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
 container.
 
     \medskip
@@ -356,14 +356,14 @@ Not yet available.
 
 \subsection{Test Cycle LVV-C115 }
 
-Open test cycle {\it \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testrun/LVV-C115}{Fall 2019 Pipelines Release Acceptance Test Campaign
+Open test cycle {\it \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testrun/LVV-C115}{ Fall 2019 Pipelines Release Acceptance Test Campaign
 }} in Jira.
 
-Fall 2019 Pipelines Release Acceptance Test Campaign
+ Fall 2019 Pipelines Release Acceptance Test Campaign
 \\
 Status: In Progress
 
-This test cycle verifies a subset of
+ This test cycle verifies a subset of
 \href{https://lse-61.lsst.io/}{DMSR} (\citeds{LSE-61}) requirements related to
 the LSST Science Pipelines, in order to verify their completion and
 readiness for LSST Operations (i.e., that the requirements laid out in
@@ -371,7 +371,7 @@ readiness for LSST Operations (i.e., that the requirements laid out in
 
 
 \subsubsection{Software Version/Baseline}
-All tests will be performed with LSST Science Pipelines release version
+ All tests will be performed with LSST Science Pipelines release version
 19.0.0, including its algorithms and resulting science data products.~
 
 
@@ -380,13 +380,13 @@ Not provided.
 
 \subsubsection{Test Cases in LVV-C115 Test Cycle}
 
-\paragraph{Test Case LVV-T41 - Verify implementation of Generate PSF for Visit Images
+\paragraph{Test Case LVV-T41 -  Verify implementation of Generate PSF for Visit Images
  }\mbox{}\\
 
 Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T41}{\textit{ LVV-T41 } }
 test case in Jira.
 
-Verify that Processed Visit Images produced by the DRP and AP pipelines
+ Verify that Processed Visit Images produced by the DRP and AP pipelines
 are associated with a model from which one can obtain an image of the
 PSF given a point on the image.
 
@@ -396,7 +396,7 @@ PSF given a point on the image.
 
 Execution status: {\bf Pass }
 
-Final comment:\\Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+Final comment:\\ Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
 container.
 
 
@@ -544,25 +544,25 @@ as ``executions/LVV-T41/test\_LVV-T41.ipynb''.~
 
 \end{longtable}
 
-\paragraph{Test Case LVV-T62 - Verify implementation of Provide PSF for Coadded Images
+\paragraph{Test Case LVV-T62 -  Verify implementation of Provide PSF for Coadded Images
  }\mbox{}\\
 
 Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T62}{\textit{ LVV-T62 } }
 test case in Jira.
 
-Verify that all coadd images produced by the DRP pipelines include a
+ Verify that all coadd images produced by the DRP pipelines include a
 model from which an image of the PSF at any point on the coadd can be
 obtained.
 
 
 \textbf{ Preconditions}:\\
-Fully covered by preconditions for
+ Fully covered by preconditions for
 \href{https://jira.lsstcorp.org/secure/Tests.jspa\#/testCase/LVV-T16}{LVV-T16}.
 
 
 Execution status: {\bf Pass }
 
-Final comment:\\Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+Final comment:\\ Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
 container.
 
 
@@ -711,13 +711,13 @@ as ``executions/LVV-T62/test\_LVV-T62.ipynb''.~
 
 \end{longtable}
 
-\paragraph{Test Case LVV-T132 - Verify implementation of Pre-cursor and Real Data
+\paragraph{Test Case LVV-T132 -  Verify implementation of Pre-cursor and Real Data
  }\mbox{}\\
 
 Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T132}{\textit{ LVV-T132 } }
 test case in Jira.
 
-Demonstrate that pixel-oriented data from astronomical imaging cameras
+ Demonstrate that pixel-oriented data from astronomical imaging cameras
 (precursor or otherwise) can be processed using LSST Science Algorithms
 and organized for access through the Data Butler Access Client. ~
 
@@ -789,13 +789,13 @@ data products are present and accessible via the Butler.
 
 \end{longtable}
 
-\paragraph{Test Case LVV-T40 - Verify implementation of Generate WCS for Visit Images
+\paragraph{Test Case LVV-T40 -  Verify implementation of Generate WCS for Visit Images
  }\mbox{}\\
 
 Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T40}{\textit{ LVV-T40 } }
 test case in Jira.
 
-Verify that Processed Visit Images produced by the AP and DRP pipelines
+ Verify that Processed Visit Images produced by the AP and DRP pipelines
 include FITS WCS accurate to specified \textbf{astrometricAccuracy} over
 the bounds of the image.
 
@@ -1039,13 +1039,13 @@ accuracy criterion is met at all positions.
 
 \end{longtable}
 
-\paragraph{Test Case LVV-T1240 - Verify implementation of minimum astrometric standards per CCD
+\paragraph{Test Case LVV-T1240 -  Verify implementation of minimum astrometric standards per CCD
  }\mbox{}\\
 
 Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T1240}{\textit{ LVV-T1240 } }
 test case in Jira.
 
-Verify that each CCD in a processed dataset had its astrometric solution
+ Verify that each CCD in a processed dataset had its astrometric solution
 determined by at least~\textbf{astrometricMinStandards = 5~}astrometric
 standards.
 
@@ -1154,13 +1154,13 @@ used in determining the WCS solution.
 
 \end{longtable}
 
-\paragraph{Test Case LVV-T378 - Verify Calculation of Astrometric Performance Metrics
+\paragraph{Test Case LVV-T378 -  Verify Calculation of Astrometric Performance Metrics
  }\mbox{}\\
 
 Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T378}{\textit{ LVV-T378 } }
 test case in Jira.
 
-Verify that the DMS system provides software to calculate astrometric
+ Verify that the DMS system provides software to calculate astrometric
 performance metrics, and that the algorithms are properly calculating
 the desired quantities. Note that because the DMS requirement is that
 the software shall be provided (and not on the actual measured values of
@@ -1300,13 +1300,13 @@ Measured astrometry metrics that are within reasonable values given the
 
 \end{longtable}
 
-\paragraph{Test Case LVV-T377 - Verify Calculation of Photometric Performance Metrics
+\paragraph{Test Case LVV-T377 -  Verify Calculation of Photometric Performance Metrics
  }\mbox{}\\
 
 Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T377}{\textit{ LVV-T377 } }
 test case in Jira.
 
-Verify that the DMS system provides software to calculate photometric
+ Verify that the DMS system provides software to calculate photometric
 performance metrics, and that the algorithms are properly calculating
 the desired quantities. Note that because the DMS requirement is that
 the software shall be provided (and not on the actual measured values of
@@ -1445,13 +1445,13 @@ Measured astrometry metrics that are within reasonable values given the
 
 \end{longtable}
 
-\paragraph{Test Case LVV-T376 - Verify the Calculation of Ellipticity Residuals and Correlations
+\paragraph{Test Case LVV-T376 -  Verify the Calculation of Ellipticity Residuals and Correlations
  }\mbox{}\\
 
 Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T376}{\textit{ LVV-T376 } }
 test case in Jira.
 
-Verify that the DMS includes software to enable the calculation of the
+ Verify that the DMS includes software to enable the calculation of the
 ellipticity residuals and correlation metrics defined in the OSS.~
 
 
@@ -1588,13 +1588,13 @@ Measured ellipticity metrics that are within reasonable values given the
 
 \end{longtable}
 
-\paragraph{Test Case LVV-T28 - Verify implementation of Measurements in catalogs
+\paragraph{Test Case LVV-T28 -  Verify implementation of Measurements in catalogs
  }\mbox{}\\
 
 Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T28}{\textit{ LVV-T28 } }
 test case in Jira.
 
-Verify that source measurements in catalogs are in flux units.
+ Verify that source measurements in catalogs are in flux units.
 
 
 \textbf{ Preconditions}:\\
@@ -1699,13 +1699,13 @@ Confirmation of measurements in catalogs encoded in flux units.
 
 \end{longtable}
 
-\paragraph{Test Case LVV-T43 - Verify implementation of Background Model Calculation
+\paragraph{Test Case LVV-T43 -  Verify implementation of Background Model Calculation
  }\mbox{}\\
 
 Open  \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T43}{\textit{ LVV-T43 } }
 test case in Jira.
 
-Verify that Processed Visit Images produced by the DRP and AP pipelines
+ Verify that Processed Visit Images produced by the DRP and AP pipelines
 have had a model of the background subtracted, and that this model is
 persisted in a way that permits the background subtracted from any CCD
 to be retrieved along with the image for that CCD.
@@ -1716,7 +1716,7 @@ to be retrieved along with the image for that CCD.
 
 Execution status: {\bf Pass }
 
-Final comment:\\Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+Final comment:\\ Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
 container.
 
 
