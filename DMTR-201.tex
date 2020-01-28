@@ -165,7 +165,7 @@ The personnel involved in the test campaign are shown in the following table.
 \end{minipage}
 \\ \hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T40}{LVV-T40}
-& {\small Jim Bosch } & {\small  } &
+& {\small Jim Bosch } & {\small Jeffrey Carlin } &
 \begin{minipage}[]{6cm}
 \smallskip
 {\small  }
@@ -173,7 +173,7 @@ The personnel involved in the test campaign are shown in the following table.
 \end{minipage}
 \\ \hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T1240}{LVV-T1240}
-& {\small Jim Bosch } & {\small  } &
+& {\small Jim Bosch } & {\small Jeffrey Carlin } &
 \begin{minipage}[]{6cm}
 \smallskip
 {\small  }
@@ -272,19 +272,23 @@ container.
     &
     \\\hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T40}{LVV-T40}
-    & Not Executed &
+    & Pass w/ Deviation &
     \begin{minipage}[]{9cm}
     \smallskip
-    
+     Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
     \medskip
     \end{minipage}
     &
     \\\hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T1240}{LVV-T1240}
-    & Not Executed &
+    & Pass &
     \begin{minipage}[]{9cm}
     \smallskip
-    
+     Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
     \medskip
     \end{minipage}
     &
@@ -803,9 +807,11 @@ the bounds of the image.
 \textbf{ Preconditions}:\\
 
 
-Execution status: {\bf Not Executed }
+Execution status: {\bf Pass w/ Deviation }
 
-Final comment:\\
+Final comment:\\ Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
 
 
 Detailed steps results:
@@ -832,11 +838,17 @@ A dataset with Processed Visit Images available.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+We used the output repo from HSC-RC2 data processing, as executed using
+the weekly pipelines release (w\_2019\_46) that became v19.0.0. The
+output repo is tagged with the Jira ticket number
+\href{https://jira.lsstcorp.org/browse/DM-22223}{DM-22223}.\\[2\baselineskip]The
+path to the dataset on the development cluster (lsst-dev) is
+`/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'.
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 2 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -867,11 +879,19 @@ Butler repo available for reading.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+The test was executed in a notebook named `test\_LVV-T40\_T1240.ipynb`.
+Within the notebook, initialization of the Butler repo was done as
+follows:\\[2\baselineskip]import lsst.daf.persistence as dafPersist\\
+rc2\_repo = `/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'\\
+butler = dafPersist.Butler(rc2\_repo)\\[2\baselineskip]Further steps
+were needed to parse the filenames in the repository to extract the
+available tract/patch/visit combinations. (These steps may not be
+necessary with future versions of the data butler.)
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 3 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -894,11 +914,13 @@ that catalog.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+This was done 500 times, extracting the source list and WCS for 500
+randomly-selected CCD/visit combinations from the repository.
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 4 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -922,11 +944,25 @@ used in determining the WCS solution.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+It was confirmed that all CCDs selected had more than
+astrometricMinStandards=5 standards used in their WCS solutions. This
+was done using the following code to extract the number of astrometric
+standards for each image:\\[2\baselineskip]astrom\_selection =
+np.where(src{[}'calib\_astrometry\_used'{]} == True)\\
+num\_calib\_astrom.append(np.size(astrom\_selection))\\[2\baselineskip]In
+the end, we calculate the fraction of fields that met this requirement,
+using:\\[2\baselineskip]wcsFlagsPercent =
+(np.size(np.where(haswcs\_flags))/np.size(haswcs\_flags))*100.0*u.percent\\[2\baselineskip]The
+result (from the notebook) is:\\
+
+\begin{verbatim}
+Percentage of fields with > astrometricMinStandards=5:  100.0 %  --  True
+\end{verbatim}
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 5 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -948,11 +984,19 @@ A list of RA, Dec coordinates for all sources in the catalog.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+Executed the following (for each CCD/visit) to create a list of RA, Dec
+coords from XY:\\[2\baselineskip]xxx = src.getX()\\
+yyy = src.getY()\\
+radec = {[}wcs.pixelToSky(xxx{[}i{]}, yyy{[}i{]}) for i in
+range(len(xxx)){]}\\
+radec\_arr = np.array({[}(coo.getRa().asDegrees(),
+coo.getDec().asDegrees()) for coo in radec{]})\\[2\baselineskip]This
+yields an array with RA, Dec coordinates.
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 6 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -976,11 +1020,31 @@ Gaia DR2.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+Used astroquery to extract Gaia sources, then Astropy utilities to match
+the catalogs:\\[2\baselineskip]gaia\_mch =
+Gaia.query\_object\_async(coordinate=cen, width=width, height=height)\\
+sc\_src = SkyCoord(radec\_arr{[}:,0{]}*u.deg,
+radec\_arr{[}:,1{]}*u.deg)\\
+sc\_gaia = SkyCoord(gaia\_mch{[}'ra'{]}, gaia\_mch{[}'dec'{]})\\
+src\_match = sc\_src.match\_to\_catalog\_sky(sc\_gaia)\\
+sep\_match = src\_match{[}1{]}\\[2\baselineskip]Filtered the matched
+catalog to keep only matches with \textless{}2" separation and with
+magnitude difference \textless{} 1.0 (relative to the median magnitude
+difference of all sources, to account for different
+filters):\\[2\baselineskip]okmch = (sep\_match.arcsec \textless{} 2.0)\\
+matchsep = sep\_match{[}okmch{]}\\[2\baselineskip]\# Require the matches
+to have similar magnitudes:\\
+gaia\_gmag = gaia\_mch{[}'phot\_g\_mean\_mag'{]}\\
+magdiff =
+src\_mag{[}okmch{]}{[}:,0{]}-gaia\_gmag{[}src\_match{[}0{]}{[}okmch{]}{]}\\[2\baselineskip]okmagdiff
+= (np.abs(magdiff - np.median(magdiff)) \textless{} 1.0)\\
+okmatchsep = matchsep{[}okmagdiff{]}\\[2\baselineskip]This yields the
+final matched list.
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 7 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -1005,11 +1069,28 @@ transformation is accurate.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+Figures shown in the notebook. Rather than histograms, we used
+comparisons of the various extracted parameters.\\[2\baselineskip]In
+addition to figures, we calculated the percentage of images that
+satisfied the requirement on~\textbf{astrometricAccuracy}. This was less
+than 100\% in all trials, likely due to some deep (or problematic)
+images having few Gaia matches. The results printed in the notebook are
+as follows:\\[2\baselineskip]
+
+\begin{verbatim}
+Percentage of fields meeting the threshold:  81.89134808853119 %  --  False
+\end{verbatim}
+
+Some brief exploration into reasons for a few images having large
+astrometric residuals is included in the notebook
+(`test\_LVV-T40\_T1240.ipynb`).\\[2\baselineskip]Pending exploration of
+the small fraction of ``failing'' images, we grant this test a ``Pass
+With Deviation.''
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass w/ Deviation } \\ \hline
 
 8 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -1031,11 +1112,17 @@ accuracy criterion is met at all positions.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+Upon examination, we find that many images have only \textasciitilde{}50
+Gaia matches over the entire frame. This is too few stars to get
+statistically meaningful results from subregions, so we did not perform
+this portion of the test.\\[2\baselineskip]We denote this as ``Pass With
+Deviation,'' as it is likely the requirement text will need to be
+changed to account for the paucity of Gaia sources in many fields.
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass w/ Deviation } \\ \hline
 
 \end{longtable}
 
@@ -1053,9 +1140,11 @@ standards.
 \textbf{ Preconditions}:\\
 
 
-Execution status: {\bf Not Executed }
+Execution status: {\bf Pass }
 
-Final comment:\\
+Final comment:\\ Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
 
 
 Detailed steps results:
@@ -1082,11 +1171,17 @@ A dataset with Processed Visit Images.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+We used the output repo from HSC-RC2 data processing, as executed using
+the weekly pipelines release (w\_2019\_46) that became v19.0.0. The
+output repo is tagged with the Jira ticket number
+\href{https://jira.lsstcorp.org/browse/DM-22223}{DM-22223}.\\[2\baselineskip]The
+path to the dataset on the development cluster (lsst-dev) is
+`/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'.
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 2 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -1117,11 +1212,19 @@ Butler repo available for reading.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+The test was executed in a notebook named `test\_LVV-T40\_T1240.ipynb`.
+Within the notebook, initialization of the Butler repo was done as
+follows:\\[2\baselineskip]import lsst.daf.persistence as dafPersist\\
+rc2\_repo = `/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'\\
+butler = dafPersist.Butler(rc2\_repo)\\[2\baselineskip]Further steps
+were needed to parse the filenames in the repository to extract the
+available tract/patch/visit combinations. (These steps may not be
+necessary with future versions of the data butler.)
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 3 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -1146,11 +1249,25 @@ used in determining the WCS solution.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+It was confirmed that all CCDs selected had more than
+astrometricMinStandards=5 standards used in their WCS solutions. This
+was done using the following code to extract the number of astrometric
+standards for each image:\\[2\baselineskip]astrom\_selection =
+np.where(src{[}'calib\_astrometry\_used'{]} == True)\\
+num\_calib\_astrom.append(np.size(astrom\_selection))\\[2\baselineskip]In
+the end, we calculate the fraction of fields that met this requirement,
+using:\\[2\baselineskip]wcsFlagsPercent =
+(np.size(np.where(haswcs\_flags))/np.size(haswcs\_flags))*100.0*u.percent\\[2\baselineskip]The
+result (from the notebook `test\_LVV-T40\_T1240.ipynb`) is:\\
+
+\begin{verbatim}
+Percentage of fields with > astrometricMinStandards=5:  100.0 %  --  True
+\end{verbatim}
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 \end{longtable}
 
