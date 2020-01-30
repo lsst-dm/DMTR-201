@@ -205,7 +205,7 @@ The personnel involved in the test campaign are shown in the following table.
 \end{minipage}
 \\ \hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T28}{LVV-T28}
-& {\small Colin Slater } & {\small  } &
+& {\small Colin Slater } & {\small Jeffrey Carlin } &
 \begin{minipage}[]{6cm}
 \smallskip
 {\small  }
@@ -321,10 +321,12 @@ container.
     &
     \\\hline
 \href{https://jira.lsstcorp.org/secure/Tests.jspa#/testCase/LVV-T28}{LVV-T28}
-    & Not Executed &
+    & Pass w/ Deviation &
     \begin{minipage}[]{9cm}
     \smallskip
-    
+     Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
     \medskip
     \end{minipage}
     &
@@ -1717,9 +1719,11 @@ test case in Jira.
 \textbf{ Preconditions}:\\
 
 
-Execution status: {\bf Not Executed }
+Execution status: {\bf Pass w/ Deviation }
 
-Final comment:\\
+Final comment:\\ Test executed on lsst-lsp-stable, using Release v19.0.0, with a Large
+container.
+
 
 
 Detailed steps results:
@@ -1756,11 +1760,17 @@ Butler repo available for reading.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+We used the output repo from HSC-RC2 data processing, as executed using
+the weekly pipelines release (w\_2019\_46) that became v19.0.0. The
+output repo is tagged with the Jira ticket number
+\href{https://jira.lsstcorp.org/browse/DM-22223}{DM-22223}.\\[2\baselineskip]The
+path to the dataset on the development cluster (lsst-dev) is
+`/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'.
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 2 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -1782,11 +1792,30 @@ and one with difference imaging.~
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+The test was executed in a notebook named `test\_LVV-T28.ipynb`. Within
+the notebook, initialization of the Butler repo was done as
+follows:\\[2\baselineskip]import lsst.daf.persistence as dafPersist\\
+rc2\_repo = `/datasets/hsc/repo/rerun/RC/w\_2019\_46/DM-22223'\\
+butler = dafPersist.Butler(rc2\_repo)\\[2\baselineskip]Arbitrary dataIds
+within this repo were chosen -- one for a processed visit image, and one
+for a deep coadd image (note that no difference images were available,
+so we deem this step a ``Pass With Deviation''). The specific code
+used:\\[2\baselineskip]filter = `HSC-I'\\
+\# PVI:\\
+ccd = 14\\
+visit = 35890\\
+\# Coadd\\
+tract = 9615\\
+patch = `5,3'\\[2\baselineskip]dataIdPVI = \{'filter':filter,
+`visit':visit, `ccd':ccd\}\\
+dataIdCoadd = \{'tract':tract, `filter':filter, `patch':patch\}\\
+src = butler.get('src', dataId = dataIdPVI)\\
+forced\_src = butler.get('deepCoadd\_forced\_src', dataId = dataIdCoadd)
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass w/ Deviation } \\ \hline
 
 3 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -1808,11 +1837,26 @@ Confirmation of measurements in catalogs encoded in flux units.
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
+In the notebook, we extracted the schema for each of the source
+catalogs. Source flux measurements all contain the string ``instFlux''
+(i.e., ``instrumental flux'') in their names, so we subselect on this
+string. We then confirm that all measurements with ``instFlux'' in their
+names have units of ``count'' using a simple assert statement. The
+results (seen in notebook `test\_LVV-T28.ipynb') are as
+follows:\\[2\baselineskip]
+
+\begin{verbatim}
+All forced_src instFlux entries have units of counts:  True
+\end{verbatim}
+
+\begin{verbatim}
+All src instFlux entries have units of counts:  True
+\end{verbatim}
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Not Executed } \\ \hline
+ & Status: \textbf{ Pass } \\ \hline
 
 \end{longtable}
 
