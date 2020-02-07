@@ -532,12 +532,71 @@ container.
 \subsection{Overall Assessment}
 \label{sect:overallassessment}
 
-Not yet available.
+ This campaign successfully demonstrated that the DM system is meeting
+many of its requirements, primarily using the HSC-RC2 dataset. The
+requirements that were verified include some related to basic image
+processing and data products (e.g., PSF and background modeling,
+astrometric solutions and WCS), and a number of tests related to DM
+algorithms provided to calculate performance metrics. (Note that the DM
+system is not required to verify that the performance metrics are
+meeting their required thresholds, but simply that DM must provide the
+tools to calculate/evaluate the metrics.) The tests demonstrated that a
+subset of these metrics can be measured at present, and that the
+framework (namely, `validate\_drp`) exists to enable the addition of
+other metrics.\\[2\baselineskip]Some minor issues that arose include:
+
+\begin{itemize}
+\tightlist
+\item
+  `validate\_drp` -- while powerful and essential to this test campaign
+  -- can be challenging to work with, and its architecture may make it
+  difficult to implement some of the more complicated metrics in the
+  future.
+\item
+  It may be difficult to scale up `validate\_drp` to run on larger
+  datasets. It took at least two days of watchful processing to ensure
+  that all 15 tract/filter combinations from RC2 completed their
+  validate\_drp runs. Part of this (and the first comment above) may be
+  related to the tester's inexperience with validate\_drp, but at least
+  in part it is due to the memory-intensive long runtimes of
+  validate\_drp on not-so-small datasets.
+\item
+  Many requirements specify that they must be met for PVIs, coadds,
+  and/or difference images (i.e., Data Release (DRP) \emph{and} Alert
+  Production (AP) data products), but currently difference imaging is
+  not a robustly functioning capability. When these tests are executed
+  in the future, the AP components should be included in addition to
+  DRP.
+\item
+  Test Cases for requirements that involve comparison to external
+  datasets (e.g., Gaia DR2 for astrometry) should more clearly specify
+  quality cuts to extract a robust and relevant comparison dataset. The
+  presence of outliers and/or other ``bad data'' in cross-matched
+  catalogs sometimes compromises the results for these external
+  comparisons.
+\end{itemize}
+
 
 \subsection{Recommended Improvements}
 \label{sect:recommendations}
 
-Not yet available.
+ The most important improvement that could be made to this process would
+be to automate many of the tests for data processing products rather
+than executing them in Jupyter notebooks. While the notebooks are good
+for visualization and documentation, the requirements (e.g., ``generate
+PSF for Visit Images'') should be verified via code that checks
+\emph{every} image rather than just a subset, and that reports a single
+pass/fail result in the end. The current notebook-based approach should
+be adapted for future test campaigns (especially as tests are performed
+on larger datasets).\\[2\baselineskip]As noted above, it is possible
+that `validate\_drp` will not scale well to larger datasets, and that
+its architecture will make implementation of some metrics challenging.
+To address this, we are developing an improved framework (currently
+dubbed the `SV-distiller`) that is more flexible and
+modular.\\[2\baselineskip]Finally, this testing highlighted the need to
+clarify some requirements, or at least to be explicit and clear about
+how they are being interpreted when executing tests.
+
 
 \newpage
 \section{Detailed Test Results}
@@ -1792,6 +1851,7 @@ milliarcseconds.
 
 
 \textbf{ Preconditions}:\\
+ 
 
 
 Execution status: {\bf Pass }
@@ -1843,19 +1903,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -2000,7 +2062,10 @@ Test Cases numbered LVV-T1745-1759 in this Test Cycle, but have only
 been attached to this execution of LVV-T1745.}}\\[2\baselineskip]The
 calculated value of AM2 for the example case (tract 9615, HSC-I filter)
 illustrated in the attached document is AM2 = 10.9 mas, which is near
-the design threshold of 10.0 mas.
+the design threshold of 10.0 mas.\\[2\baselineskip]A summary table
+(extracted from the Jupyter notebook) illustrating all evaluated metrics
+is seen
+below.\\[2\baselineskip]\includegraphics[width=4.31250in]{jira_imgs/1297.png}
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
@@ -2075,19 +2140,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -2308,19 +2375,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -2347,17 +2416,11 @@ eups list -s
 
  & Actual Result \\
  & \begin{minipage}[t]{15cm}{\footnotesize
-On lsst-dev, the setup was done as follows:\\[2\baselineskip]source
-/software/lsstsw/stack/loadLSST.bash\\
-source scl\_source enable devtoolset-8\\
-setup -t w\_2019\_46 lsst\_distrib\\
-setup obs\_subaru\\
-setup validate\_drp
 
 \medskip }
 \end{minipage} \\ \cdashline{2-2}
 
- & Status: \textbf{ Pass } \\ \hline
+ & Status: \textbf{ Not Executed } \\ \hline
 
 3 & Description \\
  & \begin{minipage}[t]{15cm}
@@ -2536,19 +2599,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -2766,19 +2831,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -3000,19 +3067,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -3235,19 +3304,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -3465,19 +3536,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -3697,19 +3770,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -3927,19 +4002,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -4159,19 +4236,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -4390,19 +4469,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
@@ -4619,19 +4700,21 @@ path to the dataset on the development cluster (lsst-dev) is
 The `path` that you will use depends on where you are running the
 science pipelines. Options:\\[2\baselineskip]
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\textbf{Location} & \textbf{path}\tabularnewline
-local (newinstall.sh - based install) &
-{[}path\_to\_installation{]}/loadLSST.bash\tabularnewline
-development cluster (``lsst-dev'') &
-/software/lsstsw/stack/loadLSST.bash\tabularnewline
-LSP Notebook aspect (from a terminal) &
-/opt/lsst/software/stack/loadLSST.bash\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  local (newinstall.sh - based
+  install):{[}path\_to\_installation{]}/loadLSST.bash
+\item
+  development cluster (``lsst-dev''):
+  /software/lsstsw/stack/loadLSST.bash
+\item
+  LSP Notebook aspect (from a terminal):
+  /opt/lsst/software/stack/loadLSST.bash
+\end{itemize}
 
-From the command line, execute the commands below:\\[2\baselineskip]
+From the command line, execute the commands below in the example
+code:\\[2\baselineskip]
 
 \medskip }
 \end{minipage}
